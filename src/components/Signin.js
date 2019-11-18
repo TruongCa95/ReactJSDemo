@@ -5,20 +5,22 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { Link } from "react-router-dom";
+import { connect } from 'react-redux';
+
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+        Material-UI
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -51,7 +53,24 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Signin() {
+const LoginForm = props=>{
+  const [values, setValues] = React.useState({
+		email: '',
+		password: ''
+  })
+  var { authenticate } = props.props
+  function handleChange(e) {
+		e.persist()
+		setValues(oldValues => ({
+			...oldValues,
+			[e.target.name]:
+				e.target.type === 'checkbox' ? e.target.checked : e.target.value
+		}))
+	}
+	const handleSubmit = e => {
+		e.preventDefault()
+    authenticate(values)
+  }
   const classes = useStyles();
 
   return (
@@ -64,7 +83,9 @@ export default function Signin() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} 
+        onSubmit={handleSubmit}
+        noValidate>
           <TextField
             variant="outlined"
             margin="normal"
@@ -75,6 +96,9 @@ export default function Signin() {
             name="email"
             autoComplete="email"
             autoFocus
+            value={values.email}
+						onChange={handleChange}
+       
           />
           <TextField
             variant="outlined"
@@ -86,6 +110,9 @@ export default function Signin() {
             type="password"
             id="password"
             autoComplete="current-password"
+            value={values.password}
+						onChange={handleChange}
+        
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
@@ -107,7 +134,7 @@ export default function Signin() {
               </Link>
             </Grid>
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link to={'/signup'} variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>
@@ -118,5 +145,33 @@ export default function Signin() {
         <Copyright />
       </Box>
     </Container>
-  );
+  )
+  }
+class Login extends Component{
+ render(){
+   if(this.props.isAuthenticated){
+     this.props.history.push('/profile')
+   }
+   return (
+    <div>
+      <LoginForm props={this.props} />
+    </div>
+  )
+ }
 }
+const mapStateToProps = state => {
+	return {
+		isAuthenticated: state.login.isAuthenticated
+	}
+}
+
+const mapDispatchToProps = dispatch => {
+	return {
+		Login: authendiacate => dispatch(Login(authendiacate))
+	}
+}
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(Login)
