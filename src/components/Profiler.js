@@ -5,17 +5,17 @@ import Grid  from '@material-ui/core/Grid'
 import Button  from '@material-ui/core/Button'
 import Container from '@material-ui/core/Container'
 import { GetUsers } from '../action/SignupAction';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux'S
 
 
 
 const UserProfile = props => {
 	const email = props.props.user ? props.props.user.email : '';
 	const name = props.props.user ? props.props.user.name : '';
-	const phoneNumber = props.props.user ? props.props.user.mobileNumber : ''
+	const phoneNumber = props.props.user ? props.props.user.phoneNumber : ''
   const gender = props.props.user ? props.props.user.gender : '';
   const dob = props.props.user ? props.props.user.dob : '';
-  const emailOtpIn = props.props.user ? props.props.user.emailOtpIn : '';
+  const emailOtpIn = props.props.user ? props.props.user.emailOptIn : '';
   const update = () =>{
     props.props.history.push("/update");
   }
@@ -105,6 +105,7 @@ class User extends Component {
 		this.props.GetUsers()
 	}
 	render() {
+    debugger
     if (!this.props.isAuthenticated) {
 			this.props.history.push('/')
 		}
@@ -116,9 +117,12 @@ class User extends Component {
 
 const mapStateToProps = state => {
 	return {
-		isAuthenticated: state.auth.isAuthenticated,
-		userId: state.auth.userId,
-		user: state.user.currentUser
+		isAuthenticated: state.login.isAuthenticated,
+    email: state.login.email,
+    userId : state.login.id,
+    token:state.login.token,
+    user : state.login.user
+	
 	}
 }
 

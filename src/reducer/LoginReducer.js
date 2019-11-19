@@ -6,7 +6,9 @@ const loginReducer = (state=initState, action)=>{
                 ...state,
                 isAuthenticated: true,
                 email: action.data.email,
-                token: action.data.token
+                id:action.data.id,
+                token: action.data.token,
+                user:action.data
             }
         default:
             return state

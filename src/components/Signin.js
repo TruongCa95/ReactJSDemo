@@ -13,6 +13,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
+import { Login } from '../action/SigninAction';
 
 
 function Copyright() {
@@ -58,7 +59,7 @@ const LoginForm = props=>{
 		email: '',
 		password: ''
   })
-  var { authenticate } = props.props
+  var { Login } = props.props
   function handleChange(e) {
 		e.persist()
 		setValues(oldValues => ({
@@ -69,7 +70,7 @@ const LoginForm = props=>{
 	}
 	const handleSubmit = e => {
 		e.preventDefault()
-    authenticate(values)
+    Login(values)
   }
   const classes = useStyles();
 
@@ -129,7 +130,7 @@ const LoginForm = props=>{
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link href="#" variant="body2">
+              <Link to="#" variant="body2">
                 Forgot password?
               </Link>
             </Grid>
@@ -147,8 +148,9 @@ const LoginForm = props=>{
     </Container>
   )
   }
-class Login extends Component{
+class Signin extends Component{
  render(){
+   debugger;
    if(this.props.isAuthenticated){
      this.props.history.push('/profile')
    }
@@ -174,4 +176,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(Login)
+)(Signin)

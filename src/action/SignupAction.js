@@ -1,8 +1,12 @@
 const APIURL='https://localhost:44390'
 export const Register = users=>{
+    debugger;
 return (dispatch, getState)=>{
     fetch(APIURL+'/api/users/register',{
         method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
         body: JSON.stringify(users)
         
     })
@@ -11,6 +15,7 @@ return (dispatch, getState)=>{
         dispatch({type:'REGISTER_MEMBER', users})
     })
     .catch (e=>{
+        console.log(e)
         dispatch({type: 'EXCEPTION',e})
     })
     }
@@ -21,27 +26,34 @@ export const Update = users =>{
         fetch(APIURL+'/api/users/edit',
         {
             method:'PUT',
+            headers: {
+				'Content-Type': 'application/json'
+			},
             body:JSON.stringify(users)
         })
         .then(()=>
         {
-            dispatch({type: 'UPDATE_MEMBER'},users)
+            dispatch({type: 'UPDATE_MEMBER',users})
         })
         .catch (e=>{
             dispatch({type: 'EXCEPTION',e})
         })
     }
 }
-export const GetUsers = (users) =>{
+export const GetUsers = () =>{
     return (dispatch, getState)=>{
-        fetch(APIURL+'api/Users/id',
+        fetch(APIURL+`api/Users/${getState().login.id}}`,
         {
             method: 'GET',
-            body: JSON.stringify(users)
+            headers: {
+				'Content-Type': 'application/json'
+			},
         })
-        .then(()=>      
+        .then((res)=>      
             {
-                dispatch({type: 'FETCH_PROFILE'},users)
+                debugger
+                console.log(res);
+                dispatch({type: 'FETCH_PROFILE'},res)
             })
             .catch (e=>{
                 dispatch({type: 'EXCEPTION',e})

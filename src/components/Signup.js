@@ -13,12 +13,22 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
+import { Register} from '../action/SignupAction';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
+import DateFnsUtils from '@date-io/date-fns';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
 
 function Copyright() {
   return (
-    <Typography variant="body2" color="textSecondary" align="center">
+    <Typography variant="body2" to="textSecondary" align="center">
       {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
+      <Link to="inherit" href="https://material-ui.com/">
         Material-UI
       </Link>{' '}
       {new Date().getFullYear()}
@@ -48,7 +58,10 @@ const useStyles = makeStyles(theme => ({
 	},
 	submit: {
 		margin: theme.spacing(3, 0, 2)
-	}
+  },
+  formControl: {
+    margin: theme.spacing(3),
+  },
 }))
 
 const SignupForm = props => {
@@ -63,7 +76,7 @@ const SignupForm = props => {
     name: "",
     password: ""
 	})
-	var { registerMember } = props.props
+	var { Register } = props.props
 
 	function handleChange(e) {
 		e.persist()
@@ -71,11 +84,17 @@ const SignupForm = props => {
 			...oldValues,
 			[e.target.name]:
 				e.target.type === 'checkbox' ? e.target.checked : e.target.value
-		}))
+    }))
+    
   }
+  const [selectedDate, setSelectedDate] = React.useState(new Date());
+  const handleDateChange = date => {
+   setSelectedDate(date);
+  };
   const handleSubmit = e => {
 		e.preventDefault()
-    registerMember(values)
+    Register(values)
+
   }
       return (
         <Container component='main' maxWidth='xs'>
@@ -104,6 +123,7 @@ const SignupForm = props => {
                     label='Full Name'
                     autoFocus
                     onChange={handleChange}
+                    placeholder="TruongCP"
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -116,6 +136,7 @@ const SignupForm = props => {
                     name='email'
                     autoComplete='email'
                     onChange={handleChange}
+                    placeholder='lvtruong@cmc.com.vn'
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -131,7 +152,7 @@ const SignupForm = props => {
                     onChange={handleChange}
                   />
                 </Grid>
-                <Grid item xs={12} sm={10}>
+                <Grid item xs={12}>
                   <TextField
                     variant='outlined'
                     required
@@ -141,9 +162,57 @@ const SignupForm = props => {
                     id='contactNumber'
                     autoComplete='contactNumber'
                     onChange={handleChange}
+                    placeholder='0123456789'
                   />
                 </Grid>
-              
+                <Grid item xs={12}>
+                <FormControl component="fieldset" className={classes.formControl}>
+                  <FormLabel component="legend">Gender</FormLabel>
+                  <RadioGroup aria-label="gender" name="gender1" value={values} onChange={handleChange}>
+                  <Grid item sm={5}>
+                  <FormControlLabel value="female" control={<Radio />} label="Female" />
+                  </Grid>
+                  <Grid item sm={5}>
+                  <FormControlLabel value="male" control={<Radio />} label="Male" />
+                  </Grid>
+                  <Grid item sm={5}>
+                  <FormControlLabel value="other" control={<Radio />} label="Other" />
+                  </Grid>
+                  </RadioGroup>
+                  </FormControl>
+                </Grid>
+                <Grid item xs={12}>
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                  <Grid container justify="space-around">
+                    <KeyboardDatePicker
+                      disableToolbar
+                      variant="inline"
+                      format="MM/dd/yyyy"
+                      margin="normal"
+                      id="date-picker-inline"
+                      label="Date picker inline"
+                      value={selectedDate}
+                      onChange={handleDateChange}
+                      KeyboardButtonProps={{
+                        'aria-label': 'change date',
+                      }}
+                    />
+                  </Grid>
+                </MuiPickersUtilsProvider>
+                </Grid> 
+                <Grid item xs={12}>
+                  <TextField
+                    variant='outlined'
+                    required
+                    fullWidth
+                    id='email'
+                    label='Email OptIn'
+                    name='email'
+                    autoComplete='email'
+                    onChange={handleChange}
+                    placeholder='truonglv9@fsoft.com.vn'
+                  />
+                </Grid>
               </Grid>
               <Button
                 type='submit'
@@ -156,7 +225,7 @@ const SignupForm = props => {
               </Button>
               <Grid container justify='flex-end'>
                 <Grid item>
-                  <Link href='/' variant='body2'>
+                  <Link to='/signin' variant='body2'>
                     Already have an account ? Login
                   </Link>
                 </Grid>
@@ -200,7 +269,7 @@ const SignupForm = props => {
         //   <div class="or">OR</div>
         // </div>
         // );
-  class Register extends Component {
+  class RegisterUser extends Component {
           render() {
             return (
               <div>
@@ -219,7 +288,7 @@ const SignupForm = props => {
         export default connect(
           null,
           mapDispatchToProps
-        )(Register)
+        )(RegisterUser)
            
 
 
