@@ -202,10 +202,10 @@ class UserUpdate extends React.Component{
 
 const mapStateToProps = state => {
 	return {
-    isAuthenticated: state.auth.isAuthenticated,
-		userId: state.auth.userId,
-    user: state.user.currentUser,
-    updated:state.user.updated
+    isAuthenticated: state.login.isAuthenticated,
+		userId: state.login.userId,
+    user: state.login.currentUser,
+    updated:state.member.updated
 	}
 }
 
