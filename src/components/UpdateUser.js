@@ -55,7 +55,7 @@ const  UpdateForm = (props) =>{
     const taget =event.target;
     const name = taget.name;
     const value = taget.type === 'checkbox' ? taget.checked : taget.value;
-    //props.props.dispatch({type:ProfileActionTypes.BINDING_USER,data:{name,value}})
+    //props.props.dispatch({type:BINDING_USER,data:{name,value}})
   }
   
   const email = props.props.user ? props.props.user.email : '';

@@ -1,14 +1,6 @@
-const initState ={memberProfile:{
-    id: 0,
-    email:"",
-    password: "",
-    dob: "",
-    emailOtpIn: "",
-    gender: "0",
-    mobileNumber: "",
-    name: "",
-}}
+const initState ={}
 const MemberReducer = (state= initState, action)=>{
+    //debugger;
     switch(action.type){
         case 'REGISTER_MEMBER':
         return{
@@ -22,6 +14,11 @@ const MemberReducer = (state= initState, action)=>{
                 ...state,
                 isUpdated:true
                 
+            }
+            case 'BINDING_USER':
+			return {
+				...state,
+                currentUser:{...state.currentUser,[action.data.name]:action.data.value}
             }
         case 'FETCH_PROFILE':
             return{

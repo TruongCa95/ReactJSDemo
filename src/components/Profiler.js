@@ -78,9 +78,7 @@ const UserProfile = props => {
                 <Grid item xs={6}>
                   <label><strong>{dob}</strong></label>
                 </Grid>
-              </Grid>
-      
-      
+              </Grid>      
               <Grid container item xs={8} spacing={3}>
                 <Grid item xs={6}>
                   <label><strong>Email Opt-In:</strong></label>
@@ -93,7 +91,7 @@ const UserProfile = props => {
                 <Grid item xs={12}>
                   <Button variant="contained" color="primary" className="login-btn"  onClick={update}>Update</Button>
                 </Grid>
-              </Grid>
+              </Grid>             
               </Typography>
             </Container>
           </React.Fragment>
@@ -105,7 +103,6 @@ class User extends Component {
 		this.props.GetUsers()
 	}
 	render() {
-    debugger
     if (!this.props.isAuthenticated) {
 			this.props.history.push('/')
 		}

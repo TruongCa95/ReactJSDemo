@@ -79,9 +79,10 @@ const SignupForm = props => {
 	var { Register } = props.props
 
 	function handleChange(e) {
+    //debugger;
 		e.persist()
 		setValues(oldValues => ({
-			...oldValues,
+      ...oldValues,
 			[e.target.name]:
 				e.target.type === 'checkbox' ? e.target.checked : e.target.value
     }))
@@ -162,26 +163,26 @@ const SignupForm = props => {
                     id='contactNumber'
                     autoComplete='contactNumber'
                     onChange={handleChange}
-                    placeholder='0123456789'
+                    placeholder='12465467'
                   />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={12} spacing={2}>
                 <FormControl component="fieldset" className={classes.formControl}>
                   <FormLabel component="legend">Gender</FormLabel>
                   <RadioGroup aria-label="gender" name="gender1" value={values} onChange={handleChange}>
-                  <Grid item sm={5}>
+                  <Grid item sm={6} spacing={2}>
                   <FormControlLabel value="female" control={<Radio />} label="Female" />
                   </Grid>
-                  <Grid item sm={5}>
+                  <Grid item sm={6} spacing={2}>
                   <FormControlLabel value="male" control={<Radio />} label="Male" />
                   </Grid>
-                  <Grid item sm={5}>
+                  <Grid item sm={6} spacing={2}>
                   <FormControlLabel value="other" control={<Radio />} label="Other" />
                   </Grid>
                   </RadioGroup>
                   </FormControl>
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={13}>
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                   <Grid container justify="space-around">
                     <KeyboardDatePicker
@@ -190,7 +191,7 @@ const SignupForm = props => {
                       format="MM/dd/yyyy"
                       margin="normal"
                       id="date-picker-inline"
-                      label="Date picker inline"
+                      label="Date Of Birth"
                       value={selectedDate}
                       onChange={handleDateChange}
                       KeyboardButtonProps={{
@@ -205,9 +206,9 @@ const SignupForm = props => {
                     variant='outlined'
                     required
                     fullWidth
-                    id='email'
+                    id='email opt-in'
                     label='Email OptIn'
-                    name='email'
+                    name='email opt-in'
                     autoComplete='email'
                     onChange={handleChange}
                     placeholder='truonglv9@fsoft.com.vn'

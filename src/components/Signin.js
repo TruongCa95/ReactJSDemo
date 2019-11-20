@@ -150,7 +150,7 @@ const LoginForm = props=>{
   }
 class Signin extends Component{
  render(){
-   debugger;
+   //debugger;
    if(this.props.isAuthenticated){
      this.props.history.push('/profile')
    }

@@ -1,8 +1,9 @@
 const APIURL='https://localhost:44390'
 export const Register = users=>{
-    debugger;
 return (dispatch, getState)=>{
+    //debugger
     fetch(APIURL+'/api/users/register',{
+        
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -10,15 +11,16 @@ return (dispatch, getState)=>{
         body: JSON.stringify(users)
         
     })
-    .then(()=>
-    {
-        dispatch({type:'REGISTER_MEMBER', users})
-    })
-    .catch (e=>{
-        console.log(e)
-        dispatch({type: 'EXCEPTION',e})
-    })
-    }
+    .then(result=>result.json()).then(data=>
+        {
+            //debugger;
+            if(data != null)
+            dispatch({type:'REGISTER_MEMBER',data})
+        })
+        .catch (e=>{
+            dispatch({type: 'EXCEPTION',e})
+        })
+}
 }
 
 export const Update = users =>{
@@ -42,6 +44,7 @@ export const Update = users =>{
 }
 export const GetUsers = () =>{
     return (dispatch, getState)=>{
+        //debugger;
         fetch(APIURL+`api/Users/${getState().login.id}}`,
         {
             method: 'GET',
@@ -51,7 +54,7 @@ export const GetUsers = () =>{
         })
         .then((res)=>      
             {
-                debugger
+                //debugger
                 console.log(res);
                 dispatch({type: 'FETCH_PROFILE'},res)
             })
